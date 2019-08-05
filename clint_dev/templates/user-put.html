@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑用户信息</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script type="text/javascript">
+            $("#put_form").ready(function () {
+                var url_str = window.location.href;
+                var u_id = url_str.split("=")[1];
+                $.ajax({
+                    type: "get",
+                    url: "/api/users/",
+                    async: true,
+                    data: {"u_id": u_id},
+                    result: {},
+                    success:function (result) {
+                        console.log(result);
+                        $("#put_form").append('<div class="form-group"><label for="inputtext" class="col-sm-2 control-label">U_ID</label><div class="col-sm-10"><input name="u_id" readonly="readonly" type="text" class="form-control" id="inputaccount" value="'+ result["data"][0]["u_id"] +'"></div></div>' +
+                            '<div class="form-group"><label for="inputtext" class="col-sm-2 control-label">密 码</label><div class="col-sm-10"><input name="u_password" type="text" class="form-control" id="inputpassword" value="'+ result["data"][0]["u_password"] +'"></div></div>' +
+                            '<div class="form-group"><label for="inputtext" class="col-sm-2 control-label">昵 称</label><div class="col-sm-10"><input name="u_name" type="text" class="form-control" id="inputaccount" value="'+ result["data"][0]["u_name"] +'"></div></div>' +
+                            '<div class="form-group"><label for="inputtext" class="col-sm-2 control-label">手机号码</label><div class="col-sm-10"><input name="u_phone" type="text" class="form-control" id="inputaccount" value="'+ result["data"][0]["u_phone"] +'"></div></div>' +
+                            '<div class="form-group"><label for="inputtext" class="col-sm-2 control-label">用户类别</label><div class="col-sm-10"><input name="u_type" type="text" class="form-control" id="inputaccount" value="'+ result["data"][0]["u_type"] +'"></div></div>' +
+                            '<div class="form-group"><label for="inputtext" class="col-sm-2 control-label">用户状态</label><div class="col-sm-10"><input name="u_statu" type="text" class="form-control" id="inputaccount" value="'+ result["data"][0]["u_statu"] +'"></div></div>' +
+                            '<div class="form-group"><label for="inputtext" class="col-sm-2 control-label">微 信</label><div class="col-sm-10"><input name="u_wechat" type="text" class="form-control" id="inputaccount" value="'+ result["data"][0]["u_wechat"] +'"></div></div>' +
+                            '<div class="form-group"><label for="inputtext" class="col-sm-2 control-label">QQ</label><div class="col-sm-10"><input name="u_qq" type="text" class="form-control" id="inputaccount" value="'+ result["data"][0]["u_qq"] +'"></div></div>' +
+                            '<div class="form-group"><label for="inputtext" class="col-sm-2 control-label">chid</label><div class="col-sm-10"><input name="u_chid" type="text" class="form-control" id="inputaccount" value="'+ result["data"][0]["u_chid"] +'"></div></div>' +
+                            '<div class="form-group"><label for="inputtext" class="col-sm-2 control-label">chkey</label><div class="col-sm-10"><input name="u_chkey" type="text" class="form-control" id="inputaccount" value="'+ result["data"][0]["u_chkey"] +'"></div></div>' +
+                            '<div class="form-group"><div class="col-sm-offset-2 col-sm-10"><button type="submit" class="btn btn-success">提交</button></div></div>');
+                        //$("#put_form").after(str);
+                        $("button").click(function () {
+                            $.ajax({
+                                type: "put",
+                                url: "/api/users/",
+                                async: true,
+                                data: $("#put_form").serialize(),
+                                result: {},
+                                success:function (result) {
+                                    alert('修改成功！');
+                                    window.close();
+                                },
+                                error:function (result) {
+
+                                    alert(result["responseJSON"]["msg"]);
+                                }
+                            });
+                        });
+                    },
+                    error:function (result) {
+                        alert('提交失败');
+                    }
+                });
+
+            })
+    </script>
+
+</head>
+<body>
+    <div class="content-wrap">
+        <div class="main">
+            <div class="container-fluid">
+                <form class="form-horizontal" id="put_form" onclick="return false">
+
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
