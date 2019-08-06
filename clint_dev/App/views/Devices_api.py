@@ -1,5 +1,6 @@
 import datetime
 import random
+import time
 
 from flask import Blueprint, request, jsonify, session
 from sqlalchemy import and_
@@ -13,11 +14,11 @@ device_api = Blueprint('device_api', __name__, url_prefix='/api/devices/')
 
 @device_api.route('/', methods=['GET', 'POST', 'PUT', 'DELETE'])
 # @check_login
-def device_contro(page=None, per_page=None, d_code=None, d_name=None,
+def device_contro(page=None, per_page=None,d_id=None, d_code=None, d_name=None,
                   d_address=None, u_id=None, d_statu=None, d_sex=None):
     if request.method == 'GET':
         page = int(request.args.get('page', 1))
-        per_page = int(request.args.get('per_page', 10))
+        per_page = int(request.args.get('per_page', 50))
         d_code = request.args.get('d_code')
         d_name = request.args.get('d_name')
         d_address = request.args.get('d_address')
@@ -351,6 +352,15 @@ def device_contro(page=None, per_page=None, d_code=None, d_name=None,
                 error_out=False)
             data, page_msg = get_device_paginate(pages)
             return jsonify(data=data, page_msg=page_msg), 200
+        # elif d_id:
+        #     pages = Devices.query.filter(
+        #         Devices.d_id == d_id,
+        #     ).paginate(
+        #         page=page,
+        #         per_page=per_page,
+        #         error_out=False)
+        #     data, page_msg = get_device_paginate(pages)
+        #     return jsonify(data=data, page_msg=page_msg), 200
         else:
             pages = Devices.query.filter().paginate(
                 page=page,
@@ -364,33 +374,25 @@ def device_contro(page=None, per_page=None, d_code=None, d_name=None,
         code = request.form.get('d_code')
         name = request.form.get('d_name')
         sex = request.form.get('d_sex')
-        address = request.form.get('d_addressd_type')
+        address = request.form.get('d_address')
         type = request.form.get('d_type')
-        uid = request.form.get('u_id')
-        end_time = request.form.get('end_time')
         statu = request.form.get('d_statu')
         start_time = datetime.date.today()
-        if name and sex and address and type and uid and statu and end_time and start_time and code:
-
-            if Devices.filter(Devices.d_code == code):
+        if name and sex and address and type and statu and start_time and code:
+            if Devices.query.filter_by(d_code=code).all():
                 return jsonify(
                     {'msg': '{} is using'.format(code), 'code': 1005}), 404
             else:
-                if start_time > end_time:
-                    return jsonify(
-                        {'msg': 'wrong end_time', 'code': 1010}), 404
-                else:
-                    device.d_code = code
-                    device.d_sex = sex
-                    device.d_type = type
-                    device.end_time = end_time
-                    device.start_time = start_time
-                    device.d_name = name
-                    device.d_statu = statu
-                    device.u_id = uid
-                    device.d_address = address
-                    db.session.add(device)
-                    db.session.commit()
+                device.d_code = code
+                device.d_sex = sex
+                device.d_type = type
+                device.start_time = start_time
+                device.d_name = name
+                device.d_statu = statu
+                device.d_address = address
+                db.session.add(device)
+                db.session.commit()
+                return jsonify({'msg':'添加成功','code':1000}),200
 
     elif request.method == 'PUT':
 
@@ -402,25 +404,38 @@ def device_contro(page=None, per_page=None, d_code=None, d_name=None,
         end_time = request.form.get('end_time')
         u_id = request.form.get('u_id')
         d_id = request.form.get('d_id')
-
+        m_id = request.form.get('m_id')
+        d_scheme_size = request.form.get('d_scheme_size')
         device = Devices.query.get(d_id)
 
         if device:
             if d_name:
                 device.d_name = d_name
+                db.session.add(device)
             if d_sex:
-                device.d_sex = d_sex
+                device.d_sex = int(d_sex)
+                db.session.add(device)
             if d_address:
                 device.d_address = d_address
+                db.session.add(device)
             if d_statu:
-                device.d_statu = d_statu
+                device.d_statu = int(d_statu)
+                db.session.add(device)
             if d_type:
-                device.d_type = d_type
+                device.d_type = int(d_type)
+                db.session.add(device)
             if end_time:
-                device.end_time = end_time
+                device.end_time = time.strptime(end_time, "%Y-%m-%d")
+                db.session.add(device)
             if u_id:
                 device.u_id = u_id
-            db.session.add(device)
+                db.session.add(device)
+            if m_id:
+                device.m_id = int(m_id)
+                db.session.add(device)
+            if d_scheme_size:
+                device.d_scheme_size = d_scheme_size
+                db.session.add(device)
             db.session.commit()
             return jsonify({'msg': 'success'})
         else:
@@ -430,6 +445,7 @@ def device_contro(page=None, per_page=None, d_code=None, d_name=None,
         u_id = session['u_id']
         user = User.query.get(u_id)
         u_level = user.u_level
+        print(user.u_name,user.u_level)
         if u_level == 0:
             d_id = request.form.get('d_id')
             device = Devices.query.get(d_id)

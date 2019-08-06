@@ -46,8 +46,9 @@ class Devices(db.Model):
     def model_to_dict(self):
         return {'d_id': self.d_id, 'u_id': self.u_id, 'd_code': self.d_code,
                 'd_name': self.d_name, 'd_sex': self.d_sex, 'd_address': self.d_address,
-                'd_type': self.d_type, 'start_time': self.start_time, 'end_time': self.end_time,
-                'd_statu': self.d_statu, 'd_scheme_size': self.d_scheme_size}
+                'd_type': self.d_type, 'start_time': self.start_time.strftime('%Y-%m-%d'), 'end_time': self.end_time.strftime('%Y-%m-%d'),
+                'd_statu': self.d_statu, 'd_scheme_size': self.d_scheme_size, 'm_id':self.m_id
+                }
 
 class MediasPags:
     p_id = db.Column(db.Integer, primary_key=True, autoincrement=True)

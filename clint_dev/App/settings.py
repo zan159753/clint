@@ -49,10 +49,10 @@ class DevelopConfig(Config):
         "ENGINE": "mysql",
         "DRIVER": "pymysql",
         "USER": "root",
-        "PASSWORD": "123",
+        "PASSWORD": "1",
         "HOST": "localhost",
         "PORT": "3306",
-        "NAME": "clint"
+        "NAME": "develop_test"
     }
 
 

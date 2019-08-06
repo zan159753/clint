@@ -4,7 +4,7 @@
     <data-source source="LOCAL" name="develop_test@localhost" uuid="7f22bc1b-9d70-457b-b228-f13e40deef6e">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/develop_test</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />

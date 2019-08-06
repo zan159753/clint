@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑设备信息</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+
+</head>
+<body>
+<div class="content-wrap">
+    <div class="main">
+        <div class="container-fluid">
+            <form class="form-horizontal" id="put_form" onclick="return false">
+                <div class="form-group"><label for="inputtext" class="col-sm-2 control-label">设备序号</label>
+                    <div class="col-sm-10"><input name="d_code" type="text" class="form-control" id="inputaccount"
+                                                  placeholder=""></div>
+                </div>
+                <div class="form-group"><label for="inputtext" class="col-sm-2 control-label">设备名称</label>
+                    <div class="col-sm-10"><input name="d_name" type="text" class="form-control" id="inputpassword"
+                                                  placeholder=""></div>
+                </div>
+                <div class="form-group"><label for="inputtext" class="col-sm-2 control-label">性 别</label>
+                    <div class="col-sm-10"><input name="d_sex" type="text" class="form-control" id="inputaccount"
+                                                  placeholder=""></div>
+                </div>
+                <div class="form-group"><label for="inputtext" class="col-sm-2 control-label">安装位置</label>
+                    <div class="col-sm-10"><input name="d_address" type="text" class="form-control" id="inputaccount"
+                                                  placeholder=""></div>
+                </div>
+                <div class="form-group"><label for="inputtext" class="col-sm-2 control-label">类 别</label>
+                    <div class="col-sm-10"><input name="d_type" type="text" class="form-control" id="inputaccount"
+                                                  placeholder=""></div>
+                </div>
+                <div class="form-group"><label for="inputtext" class="col-sm-2 control-label">状 态</label>
+                    <div class="col-sm-10"><input name="d_statu" type="text" class="form-control" id="inputaccount"
+                                                  placeholder=""></div>
+                </div>
+                <div class="form-group"><label for="inputtext" class="col-sm-2 control-label">规 格</label>
+                    <div class="col-sm-10"><input name="d_scheme_size" type="text" class="form-control"
+                                                  id="inputaccount" placeholder=""></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-success">提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $("button").click(function () {
+        $.ajax({
+            type: "post",
+            url: "/api/devices/",
+            async: true,
+            data: $("#put_form").serialize(),
+            result: {},
+            success: function (result) {
+                alert('添加成功！');
+                window.close();
+            },
+            error: function (result) {
+
+                alert(result["responseJSON"]["msg"]);
+            }
+        });
+    });
+</script>
+</body>
+</html>

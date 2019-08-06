@@ -2,15 +2,14 @@
 import datetime
 import random
 
-from flask import Blueprint, request, jsonify, session, render_template, send_file
+from flask import Blueprint, request, jsonify, session, render_template, send_file, redirect, url_for
 # from PIL import Image
 from sqlalchemy import and_
 
 from App.ext import db, cache
-from App.logics import send_msg, get_user_paginate
+from App.logics import send_msg, get_user_paginate, check_login
 from App.models import User
 # from App.settings import BASEDIR
-
 
 user_api = Blueprint("user_api", __name__, url_prefix='/api/users/')
 
@@ -19,10 +18,13 @@ regist_api = Blueprint("regist_api", __name__, url_prefix='/regist/')
 index_api = Blueprint("index_api", __name__, url_prefix='/index/')
 user_admin_api = Blueprint("user_admin_api", __name__, url_prefix='/user_admin/')
 user_put_api = Blueprint("user_put_api", __name__, url_prefix='/user_put/')
+device_admin_api = Blueprint("device_admin_api", __name__, url_prefix='/device_admin/')
+device_put_api = Blueprint("device_put_api", __name__, url_prefix='/device_put/')
+logout_api = Blueprint("logout_api", __name__, url_prefix='/logout/')
+device_add_api = Blueprint("device_add_api", __name__, url_prefix='/device_add/')
 
 @login_api.route('/')
 def to_login():
-    info_user()
     return render_template('page-login.html')
 
 @regist_api.route('/')
@@ -30,6 +32,7 @@ def to_regist():
     return render_template('page-register.html')
 
 @index_api.route('/')
+@check_login
 def to_index():
     return render_template('index.html')
 
@@ -40,6 +43,24 @@ def to_user_admin():
 @user_put_api.route('/')
 def to_user_put():
     return render_template('user-put.html')
+
+@device_admin_api.route('/')
+def to_device_admin():
+    return render_template('devices-admin.html')
+
+@device_put_api.route('/')
+def to_device_put():
+    return render_template('device-put.html')
+
+@logout_api.route('/')
+def to_logout():
+    session.clear()
+    return redirect('/',code=302)
+
+@device_add_api.route('/')
+def to_device_add():
+    return render_template('device-add.html')
+
 
 @user_api.route('/', methods=['GET', 'POST', "DELETE", "PUT","PATCH"])
 # @api.route('/users/<int:page><int:per_page><u_account>/', methods=['GET', 'POST'])
@@ -383,15 +404,15 @@ def userContro(page=None, per_page=None,u_id=None, u_account=None, u_name=None, 
 #         return file_path
 
 # 添加模拟用户数据
-def info_user():
-    user = User()
-    user.u_name = 'ab{}'.format(random.randint(1,100))
-    user.u_phone = random.randint(10000000000,200000000000)
-    user.u_account = 'ab{}'.format(random.randint(1,1000))
-    user.u_type = 1
-    user.regist_time = datetime.date.today()
-    user.u_password = '123'
-    user.u_statu = 1
-    user.u_level = 1
-    db.session.add(user)
-    db.session.commit()
+# def info_user():
+#     user = User()
+#     user.u_name = 'ab{}'.format(random.randint(1,100))
+#     user.u_phone = random.randint(10000000000,200000000000)
+#     user.u_account = 'ab{}'.format(random.randint(1,1000))
+#     user.u_type = 1
+#     user.regist_time = datetime.date.today()
+#     user.u_password = '123'
+#     user.u_statu = 1
+#     user.u_level = 1
+#     db.session.add(user)
+#     db.session.commit()

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑设备信息</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script type="text/javascript">
+            $("#put_form").ready(function () {
+                var url_str = window.location.href;
+                var d_id = url_str.split("=")[1];
+                $.ajax({
+                    type: "get",
+                    url: "/api/devices/",
+                    async: true,
+                    data: {"d_id": d_id},
+                    result: {},
+                    success:function (result) {
+                        console.log(result);
+                        $("#put_form").append('<div class="form-group"><label for="inputtext" class="col-sm-2 control-label">d_id</label><div class="col-sm-10"><input name="d_id" readonly="readonly" type="text" class="form-control" id="inputaccount" value="'+ result["data"][0]["d_id"] +'"></div></div>' +
+                            '<div class="form-group"><label for="inputtext" class="col-sm-2 control-label">设备序号</label><div class="col-sm-10"><input name="d_code" readonly="readonly" type="text" class="form-control" id="inputaccount" value="'+ result["data"][0]["d_code"] +'"></div></div>' +
+                            '<div class="form-group"><label for="inputtext" class="col-sm-2 control-label">设备名称</label><div class="col-sm-10"><input name="d_name" type="text" class="form-control" id="inputpassword" value="'+ result["data"][0]["d_name"] +'"></div></div>' +
+                            '<div class="form-group"><label for="inputtext" class="col-sm-2 control-label">性  别</label><div class="col-sm-10"><input name="d_sex" type="text" class="form-control" id="inputaccount" value="'+ result["data"][0]["d_sex"] +'"></div></div>' +
+                            '<div class="form-group"><label for="inputtext" class="col-sm-2 control-label">安装位置</label><div class="col-sm-10"><input name="d_address" type="text" class="form-control" id="inputaccount" value="'+ result["data"][0]["d_address"] +'"></div></div>' +
+                            '<div class="form-group"><label for="inputtext" class="col-sm-2 control-label">类  别</label><div class="col-sm-10"><input name="d_type" type="text" class="form-control" id="inputaccount" value="'+ result["data"][0]["d_type"] +'"></div></div>' +
+                            '<div class="form-group"><label for="inputtext" class="col-sm-2 control-label">状  态</label><div class="col-sm-10"><input name="d_statu" type="text" class="form-control" id="inputaccount" value="'+ result["data"][0]["d_statu"] +'"></div></div>' +
+                            '<div class="form-group"><label for="inputtext" class="col-sm-2 control-label">规  格</label><div class="col-sm-10"><input name="d_scheme_size" type="text" class="form-control" id="inputaccount" value="'+ result["data"][0]["d_scheme_size"] +'"></div></div>' +
+                            '<div class="form-group"><label for="inputtext" class="col-sm-2 control-label">媒体编号</label><div class="col-sm-10"><input name="m_id" type="text" class="form-control" id="inputaccount" value="'+ result["data"][0]["m_id"] +'"></div></div>' +
+                            '<div class="form-group"><label for="inputtext" class="col-sm-2 control-label">授权时间</label><div class="col-sm-10"><input name="end_time" type="text" class="form-control" id="inputaccount" value="'+ result["data"][0]["end_time"] +'"></div></div>' +
+                            '<div class="form-group"><div class="col-sm-offset-2 col-sm-10"><button type="submit" class="btn btn-success">提交</button></div></div>');
+                        //$("#put_form").after(str);
+                        $("button").click(function () {
+                            $.ajax({
+                                type: "put",
+                                url: "/api/devices/",
+                                async: true,
+                                data: $("#put_form").serialize(),
+                                result: {},
+                                success:function (result) {
+                                    alert('修改成功！');
+                                    window.close();
+                                },
+                                error:function (result) {
+
+                                    alert(result["responseJSON"]["msg"]);
+                                }
+                            });
+                        });
+                    },
+                    error:function (result) {
+                        alert('提交失败');
+                    }
+                });
+
+            })
+    </script>
+
+</head>
+<body>
+    <div class="content-wrap">
+        <div class="main">
+            <div class="container-fluid">
+                <form class="form-horizontal" id="put_form" onclick="return false">
+
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
