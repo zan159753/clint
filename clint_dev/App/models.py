@@ -4,31 +4,140 @@ from App.ext import db
 
 
 class User(db.Model):
-    u_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
-    u_account = db.Column(db.String(32), unique=True)
-    u_name = db.Column(db.String(32))
-    u_phone = db.Column(db.String(32), unique=True)
-    u_company = db.Column(db.String(64))
-    u_wechat = db.Column(db.String(32), unique=True)
-    u_qq = db.Column(db.String(32), unique=True,)
-    u_chid = db.Column(db.String(256))
-    u_chkey = db.Column(db.String(256))
-    u_icon = db.Column(db.String(256))
-    u_type = db.Column(db.Integer(),default=1)
-    u_password = db.Column(db.String(256))
-    regist_time = db.Column(db.Date)
-    u_statu = db.Column(db.Integer(),default=1)
-    u_level = db.Column(db.Integer(),default=1)
+    __tablename__ = 'user'
+    __table_args__ = {'mysql_collate':'utf8_general_ci'}
+    id = db.Column(db.Integer,primary_key=True,autoincrement=True)
+    name = db.Column(db.String(50),nullable=False,unique=True)
+    password = db.Column(db.String(100),nullable=False)
 
     def model_to_dict(self):
-        # a = self.regist_time
-        # a.strftime('%Y-%m-%d')
-        return {'u_id': self.u_id, 'u_account': self.u_account, 'u_name': self.u_name,
-                'u_phone': self.u_phone, 'u_company': self.u_company, 'u_wechat': self.u_wechat,
-                'u_qq': self.u_qq, 'u_chid': self.u_chid, 'u_chkey': self.u_chkey, 'u_icon': self.u_icon,
-                'u_type': self.u_type, 'u_password': self.u_password, 'regist_time': self.regist_time.strftime('%Y-%m-%d'),
-                'u_statu': self.u_statu, 'u_level': self.u_level}
+        return {
+            'id': self.id,
+            'name': self.name,
+            'password':self.password
+                }
 
+
+class ClientInfo(db.Model):
+    __tablename__ = 'client'
+    __table_args__ = {'mysql_collate': 'utf8_general_ci'}
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    number = db.Column(db.String(32), nullable=False, unique=True)
+    loginName = db.Column(db.String(50), nullable=False, unique=True)
+    loginPwd = db.Column(db.String(50), nullable=False)
+    phone = db.Column(db.String(32), default='')
+    email = db.Column(db.String(100), default='')
+    type = db.Column(db.Integer, default=0)
+    level = db.Column(db.Integer, default=0)
+    nature = db.Column(db.String(50), default='')
+    chId = db.Column(db.String(50), default='')
+    chKey = db.Column(db.String(50), default='')
+    salemanId = db.Column(db.String(32), default='')
+    remark = db.Column(db.Text)
+    devices = db.relationship('Device', backref=db.backref('clientInfo'))
+
+    def __repr__(self):
+        return '<client:%s %s %s>' % (self.number, self.loginName, self.loginPwd)
+
+    def model_to_dict(self):
+        return {
+            'id': self.id,
+            'number': self.number,
+            'loginName': self.loginName,
+            'loginPwd': self.loginPwd,
+            'phone': self.phone,
+            'email': self.email,
+            'type': self.type,
+            'level': self.level,
+            'nature': self.nature,
+            'chId': self.chId,
+            'chKey': self.chKey,
+            'salemanId': self.salemanId,
+            'remark': self.remark,
+
+        }
+
+
+class Device(db.Model):
+    __tablename__ = 'device'
+    __table_args__ = {'mysql_collate': 'utf8_general_ci'}
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    clientNumber = db.Column(db.String(32), db.ForeignKey('client.number'))
+    number = db.Column(db.String(32), nullable=False, unique=True)
+    name = db.Column(db.String(32), nullable=False)
+    province = db.Column(db.String(50))
+    city = db.Column(db.String(50))
+    district = db.Column(db.String(50))
+    location = db.Column(db.String(50))
+    # float小数点的位数精度不够改为Int型
+    latitude = db.Column(db.Integer, default=0)
+    longitude = db.Column(db.Integer, default=0)
+    state = db.Column(db.Integer, nullable=False)
+    create_time = db.Column(db.DateTime, default=datetime.datetime.now)
+    type = db.Column(db.String(50), default='')
+    mediacode = db.Column(db.String(50), default='m001')
+    # 销售城市
+    salecity = db.Column(db.String(50), default='')
+    # clientNumber varchar(32) , product_time datetime, carnum varchar(50) default '',gender int(11) default 2, remark TEXT
+    product_time = db.Column(db.DateTime, default=datetime.datetime.now)
+    carnum = db.Column(db.String(50), default='')
+    gender = db.Column(db.Integer, default=2)
+    version = db.Column(db.String(50), default='')
+    updatefile = db.Column(db.String(128), default='')
+    # 规格 15寸，21寸，24寸
+    spec = db.Column(db.String(50), default='')
+    remark = db.Column(db.Text)
+
+    def getRegistData(self):
+        msg = {}
+        msg["devno"] = self.number
+        msg['ctime'] = self.create_time.strftime("%Y-%m-%d %H:%M:%S")
+        locat = {}
+        locat['p'] = self.province
+        locat['c'] = self.city
+        locat['s'] = self.district
+        msg['location'] = locat
+        return msg
+
+    def checkRegCity(self):
+        if (self.salecity == None or self.salecity == '' or self.city == self.salecity or (
+                -1 != self.location.find(self.salecity))):
+            return 1
+        return 0
+
+    def model_to_dict(self):
+        try:
+            create_time = self.create_time.strftime('%Y-%m-%d')
+        except:
+            create_time = None
+        try:
+            product_time = self.product_time.strftime('%Y-%m-%d')
+        except:
+            product_time = None
+        return {
+            'id': self.id,
+            'clientNumber': self.clientNumber,
+            'number': self.number,
+            'name': self.name,
+            'province': self.province,
+            'city': self.city,
+            'district': self.district,
+            'location': self.location,
+            'latitude': self.latitude,
+            'longitude': self.longitude,
+            'state': self.state,
+            'create_time': create_time,
+            'type': self.type,
+            'mediacode': self.mediacode,
+            'salecity': self.salecity,
+            'product_time': product_time,
+            'carnum': self.carnum,
+            'gender': self.gender,
+            'version': self.version,
+            'updatefile': self.updatefile,
+            'spec': self.spec,
+            'remark': self.remark,
+        }
 
 class Devices(db.Model):
     d_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -50,31 +159,44 @@ class Devices(db.Model):
                 'd_statu': self.d_statu, 'd_scheme_size': self.d_scheme_size, 'm_id':self.m_id
                 }
 
+
 class MediasPags:
     p_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     p_code = db.Column(db.String(64))
+    p_type = db.Column(db.Integer(), default=0)
+
 
 class MediasPag_Schemes:
-    p_s_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    p_id = db.Column(db.Integer)
-    s_id = db.Column(db.Integer)
+    p_t_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    p_id = db.Column(db.Integer())
+    t_id = db.Column(db.Integer())
+    p_t_week = db.Column(db.Integer())
 
 
-# class Medias(db.Model):
-#     m_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-#     m_name = db.Column(db.String(32))
-#     m_type = db.Column(db.Integer)
-#     m_size = db.Column(db.String(32))
-#     m_format = db.Column(db.String(16))
-#     m_url = db.Column(db.String(256))
-#     m_memory = db.Column(db.String(8))
-#     u_id = db.Column(db.Integer)
-
-
-class Schemes(db.Model):
-    s_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    s_name = db.Column(db.String(32))
+#
+class Medias(db.Model):
+    m_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    m_name = db.Column(db.String(32))
+    m_type = db.Column(db.Integer)
+    m_size = db.Column(db.String(32))
+    m_format = db.Column(db.String(16))
+    m_url = db.Column(db.String(256))
+    m_memory = db.Column(db.String(8))
     u_id = db.Column(db.Integer)
+    t_id = db.Column(db.Integer())
+    m_upload_time = db.Column(db.DateTime(), default=datetime.datetime.now())
+
+
+class Themes(db.Model):
+    t_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    t_name = db.Column(db.String(32), unique=True)
+    u_id = db.Column(db.Integer())
+    t_url = db.Column(db.String(256))
+
+    def model_to_dict(self):
+        return {'t_id': self.t_id, 't_name': self.t_name, 'u_id': self.u_id,
+                't_url': self.t_url
+                }
 
 
 class AdvertisingOrders(db.Model):

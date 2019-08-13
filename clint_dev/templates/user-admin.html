@@ -44,7 +44,7 @@
             var url_str = window.location.href;
             var param = url_str.split("?")[1];
             {#var page = param.split("&")[0].split("=")[1];#}
-            var test = '/api/users/?' + param;
+            var test = '/api/client/?' + param;
 
             $.ajax({
                 type: "get",
@@ -59,36 +59,35 @@
                     var page_msg = result["page_msg"];
                     var user_str = "";
                     for (var i in data) {
-                        var u_statu = data[i]['u_statu'];
-                        if (u_statu == 1) {
-                            u_statu = "正常"
-                        } else if (u_statu == 2) {
-                            u_statu = "注销"
+                        var level = data[i]['level'];
+                        if (level == 0) {
+                            level = "正常"
+                        } else if (level == 99) {
+                            level = "注销"
                         }
-                        user_str += "<tr><td><input type='checkbox' id=" + data[i]['u_id'] + "></td><td>"
-                            + data[i]['u_id'] + "</td><td>"
-                            + data[i]['u_name'] + "</td><td>"
-                            + data[i]['u_company'] + "</td><td>"
-                            + data[i]['u_type'] + "</td><td>"
-                            + data[i]['u_phone'] + "</td><td>"
-                            + data[i]['u_wechat'] + "</td><td>"
-                            + data[i]['u_qq'] + "</td><td>"
-                            + u_statu + "</td><td>"
-                            + data[i]['regist_time'] + "</td><th align=\"right\">"
-                            + "<button class='btn btn-primary btn-xs edit' id='" + data[i]['u_id'] + "'>编辑</button>&nbsp&nbsp"
-                            + "<button class='btn btn-danger btn-xs delete_button' id='" + data[i]['u_id'] + "'>禁用</button>&nbsp&nbsp"
-                            + "<button class='btn btn-success btn-xs patch_button' id='" + data[i]['u_id'] + "'>启用</button>"
+                        user_str += "<tr><td><input type='checkbox' id=" + data[i]['id'] + "></td><td>"
+                            + data[i]['id'] + "</td><td>"
+                            + data[i]['number'] + "</td><td>"
+                            + data[i]['loginName'] + "</td><td>"
+                            + data[i]['phone'] + "</td><td>"
+                            + data[i]['email'] + "</td><td>"
+                            + data[i]['type'] + "</td><td>"
+                            + data[i]['nature'] + "</td><td>"
+                            + level + "</td><td>"
+                            + "<button class='btn btn-primary btn-xs edit' id='" + data[i]['id'] + "'>编辑</button>&nbsp&nbsp"
+                            + "<button class='btn btn-danger btn-xs delete_button' id='" + data[i]['id'] + "'>禁用</button>&nbsp&nbsp"
+                            + "<button class='btn btn-success btn-xs patch_button' id='" + data[i]['id'] + "'>启用</button>"
                             + "</th></tr>";
 
                     }
                     $(".tabletr").after(user_str);
                     $(".delete_button").click(function () {
-                        var u_id = $(this).attr("id");
+                        var id = $(this).attr("id");
                         $.ajax({
                             type: "delete",
-                            url: "/api/users/",
+                            url: "/api/client/",
                             async: true,
-                            data: {"u_id": u_id},
+                            data: {"id": id},
                             result: {},
                             success: function (result)//成功取回数据之后的回调函数
                             {
@@ -101,21 +100,27 @@
                             }
                         });
                     });
+                    $("#add").click(function () {
+                        var url = '/client_add/';
+                        var left = (window.screen.width - 600) / 2;
+                        var top = (window.screen.height - 800) / 2;
+                        window.open(url, "", "height=" + 800 + ", width=" + 600 + ",top=" + top + ",left=" + left + ", toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no");
+                    });
                     $(".edit").click(function () {
-                        var u_id = $(this).attr("id");
-                        var url = '/user_put/?u_id=' + u_id;
+                        var id = $(this).attr("id");
+                        var url = '/client_put/?id=' + id;
                         var left = (window.screen.width - 600) / 2;
                         var top = (window.screen.height - 800) / 2;
                         window.open(url, "", "height=" + 800 + ", width=" + 600 + ",top=" + top + ",left=" + left + ", toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no");
 
                     });
                     $(".patch_button").click(function () {
-                        var u_id = $(this).attr("id");
+                        var id = $(this).attr("id");
                         $.ajax({
                             type: "patch",
-                            url: "/api/users/",
+                            url: "/api/client/",
                             async: true,
-                            data: {"u_id": u_id},
+                            data: {"id": id},
                             result: {},
                             success: function (result)//成功取回数据之后的回调函数
                             {
@@ -148,7 +153,7 @@
             $("#select").click(function () {
                 $.ajax({
                     type: "get",
-                    url: "/api/users/",
+                    url: "/api/client/",
                     async: true,
                     data: $("#select_form").serialize(),
                     result: {},
@@ -180,8 +185,8 @@
 
                 <li class="label"></li>
                 <li><a class="/media_admin/"><i class="ti-calendar"></i> 广 告 管 理 </a></li>
-                <li><a href="/device_admin/?page=1&d_id=&u_id=&d_code=&d_name=&d_sex=&d_address=&d_type=&d_statu="><i class="ti-layout-grid4-alt"></i> 设 备 管 理 </a></li>
-                <li><a href="/user_admin/?page=1&u_account=&u_company=&u_phone=&u_wechat=&u_qq=&u_type=&u_statu=">
+                <li><a href="/device_admin/?page=1&per_page=50&number=&name=&city=&state=&gender=&clientNumner="><i class="ti-layout-grid4-alt"></i> 设 备 管 理 </a></li>
+                <li><a href="/user_admin/?page=1&per_page=10&number=&loginName=&phone=&email=&type=&level=&nature=&salemanId=">
                     <i class="ti-user"></i> 用 户 管 理</a></li>
 
                 <li><a href="/logout/"><i class="ti-close"></i> 登 出</a></li>
@@ -349,7 +354,8 @@
                             <div class="drop-down dropdown-profile dropdown-menu dropdown-menu-right">
                                 <div class="dropdown-content-heading">
                                     <span class="text-left">Upgrade Now</span>
-                                    <p class="trial-day">30 Days Trail</p>
+                                    <p class="trial-day">30 Days启用
+￼	2	2	b	2	2	2	正常	2 Trail</p>
                                 </div>
                                 <div class="dropdown-content-body">
                                     <ul>
@@ -428,16 +434,16 @@
                         <div class="form-group">
                             <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                             <div class="input-group">
-                                <div class="input-group-addon">帐号</div>
-                                <input type="text" name="u_account" class="form-control" id="exampleInputName2"
+                                <div class="input-group-addon">用户编号</div>
+                                <input type="text" name="number" class="form-control" id="exampleInputName2"
                                        placeholder="请输入">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                             <div class="input-group">
-                                <div class="input-group-addon">公司</div>
-                                <input type="text" name="u_company" class="form-control" id="exampleInputName2"
+                                <div class="input-group-addon">用户帐号</div>
+                                <input type="text" name="loginName" class="form-control" id="exampleInputName2"
                                        placeholder="请输入">
                             </div>
                         </div>
@@ -445,23 +451,23 @@
                             <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                             <div class="input-group">
                                 <div class="input-group-addon">手机号码</div>
-                                <input type="text" name="u_phone" class="form-control" id="exampleInputName2"
+                                <input type="text" name="phone" class="form-control" id="exampleInputName2"
                                        placeholder="请输入">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                             <div class="input-group">
-                                <div class="input-group-addon">微信号</div>
-                                <input type="text" name="u_wechat" class="form-control" id="exampleInputName2"
+                                <div class="input-group-addon">邮箱</div>
+                                <input type="text" name="email" class="form-control" id="exampleInputName2"
                                        placeholder="请输入">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                             <div class="input-group">
-                                <div class="input-group-addon">QQ</div>
-                                <input type="text" name="u_qq" class="form-control" id="exampleInputName2"
+                                <div class="input-group-addon">属性</div>
+                                <input type="text" name="nature" class="form-control" id="exampleInputName2"
                                        placeholder="请输入">
                             </div>
                         </div>
@@ -469,7 +475,7 @@
                             <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                             <div class="input-group">
                                 <div class="input-group-addon">用户类别</div>
-                                <input type="text" name="u_type" class="form-control" id="exampleInputName2"
+                                <input type="text" name="type" class="form-control" id="exampleInputName2"
                                        placeholder="请输入">
                             </div>
                         </div>
@@ -477,7 +483,7 @@
                             <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                             <div class="input-group">
                                 <div class="input-group-addon">状态</div>
-                                <input type="text" name="u_statu" class="form-control" id="exampleInputName2"
+                                <input type="text" name="level" class="form-control" id="exampleInputName2"
                                        placeholder="请输入">
                             </div>
                         </div>
@@ -493,15 +499,14 @@
                             <tr class="tabletr">
                                 <th><input type="checkbox"></th>
                                 <th>序号</th>
-                                <th>名称</th>
-                                <th>公司</th>
-                                <th>用户类型</th>
+                                <th>用户编号</th>
+                                <th>用户帐号</th>
                                 <th>手机号</th>
-                                <th>微信号</th>
-                                <th>QQ号</th>
-                                <th>状态</th>
-                                <th>注册时间</th>
-                                <th>操作</th>
+                                <th>用户邮箱</th>
+                                <th>用户类型</th>
+                                <th>用户属性</th>
+                                <th>用户状态</th>
+                                <th style="text-align:center;">操作</th>
                             </tr>
 
                         </table>

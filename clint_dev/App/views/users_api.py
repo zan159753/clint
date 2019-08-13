@@ -12,7 +12,6 @@ from App.models import User
 # from App.settings import BASEDIR
 
 user_api = Blueprint("user_api", __name__, url_prefix='/api/users/')
-
 login_api = Blueprint("login_api", __name__, url_prefix='/')
 regist_api = Blueprint("regist_api", __name__, url_prefix='/regist/')
 index_api = Blueprint("index_api", __name__, url_prefix='/index/')
@@ -68,70 +67,7 @@ def userContro(page=None, per_page=None,u_id=None, u_account=None, u_name=None, 
                u_wechat=None, u_qq=None, u_type=None, u_statu=None):
     if request.method == 'GET':
 
-        page = int(request.args.get('page', 1))
-        per_page = int(request.args.get('per_page', 15))
-        u_id = request.args.get('u_id')
-        u_account = request.args.get('u_account')
-        u_name = request.args.get('u_name')
-        u_phone = request.args.get('u_phone')
-        u_wechat = request.args.get('u_wechat')
-        u_qq = request.args.get('u_qq')
-        u_type = request.args.get('u_type')
-        u_statu = request.args.get('u_statu')
-        if u_name and u_type and u_statu:
-            pages = User.query.filter(and_(User.u_name == u_name,User.u_statu == u_statu,
-                                          User.u_type == u_type)).paginate(page=page, per_page=per_page,
-                                                                         error_out=False)
-            users = pages.items
-            page_msg = {'total_page': pages.pages, 'current_page': pages.page, 'has_prev': pages.has_prev,
-                        'has_next': pages.has_next}
-            data = []
-            for user in users:
-                data.append(user.model_to_dict())
-
-            return jsonify(data=data, page_msg=page_msg), 200
-        elif u_id:
-            pages = User.query.filter_by(u_id=u_id).paginate(page=page, per_page=per_page,
-                                                                            error_out=False)
-            users = pages.items
-            page_msg = {'total_page': pages.pages, 'current_page': pages.page, 'has_prev': pages.has_prev,
-                        'has_next': pages.has_next}
-            data = []
-            for user in users:
-                data.append(user.model_to_dict())
-
-            return jsonify(data=data, page_msg=page_msg), 200
-
-        elif u_account:
-            data, page_msg = get_user_paginate(page, per_page, args=u_account)
-            return jsonify(data=data, page_msg=page_msg), 200
-        elif u_name:
-            data, page_msg = get_user_paginate(page, per_page, args=u_name)
-            return jsonify(data=data, page_msg=page_msg), 200
-        elif u_phone:
-            data, page_msg = get_user_paginate(page, per_page, args=u_phone)
-            return jsonify(data=data, page_msg=page_msg), 200
-        elif u_wechat:
-            data, page_msg = get_user_paginate(page, per_page, args=u_wechat)
-            return jsonify(data=data, page_msg=page_msg), 200
-        elif u_qq:
-            data, page_msg = get_user_paginate(page, per_page, args=u_qq)
-            return jsonify(data=data, page_msg=page_msg), 200
-        elif u_statu:
-            data, page_msg = get_user_paginate(page, per_page, args=u_statu)
-            return jsonify(data=data, page_msg=page_msg), 200
-        elif u_type:
-            data, page_msg = get_user_paginate(page, per_page, args=u_type)
-            return jsonify(data=data, page_msg=page_msg), 200
-        else:
-            pages = User.query.paginate(page=page, per_page=per_page,error_out=False)
-            users = pages.items
-            page_msg = {'total_page': pages.pages, 'current_page': pages.page, 'has_prev': pages.has_prev,
-                        'has_next': pages.has_next, 'next_num': pages.next_num, "prev_num": pages.prev_num}
-            data = []
-            for user in users:
-                data.append(user.model_to_dict())
-            return jsonify(data = data, page_msg=page_msg),200
+        pass
 
 
     # 登陆接口
@@ -167,15 +103,19 @@ def userContro(page=None, per_page=None,u_id=None, u_account=None, u_name=None, 
                 return jsonify({'msg': 'login success', 'code': 1000},
                                user.model_to_dict()), 200
         # 帐号密码登陆
-        elif request.form.get('u_account'):
-            account = request.form.get('u_account')
-            password = request.form.get('u_password')
-            repassword = request.form.get('u_repassword')
-            user = User.query.filter_by(u_account=account).first()
+        elif request.form.get('name'):
+            print(1)
+            name = request.form.get('name')
+            password = request.form.get('password')
+            repassword = request.form.get('repassword')
+            user = User.query.filter_by(name=name).first()
+            print(2)
             if user:
-                u_password = user.u_password
-                if password == u_password:
-                    session['u_id'] = user.u_id
+                print(user.password)
+                print(password)
+                if password == user.password:
+                    print(3)
+                    session['u_id'] = user.id
                     return jsonify({'msg': 'login success', 'code': 1000},
                                    user.model_to_dict()), 200
                 else:
@@ -184,7 +124,7 @@ def userContro(page=None, per_page=None,u_id=None, u_account=None, u_name=None, 
             else:
                 if password == repassword:
                     user = User()
-                    user.u_account = account
+                    user.u_account = name
                     user.u_password = password
                     user.regist_time = datetime.date.today()
                     db.session.add(user)

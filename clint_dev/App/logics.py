@@ -1,6 +1,7 @@
 import datetime
+import os
 
-from flask import session, jsonify
+from flask import session, jsonify, redirect
 from sqlalchemy import or_, and_
 
 import App.config as cfg
@@ -100,12 +101,29 @@ def get_device_paginate(pages):
 
     return data, page_msg
 
-
+#登陆验证
 def check_login(func):
     def wraps():
         try:
             u_id = session['u_id']
             return func()
         except:
-            return jsonify({'msg':'no login','code':1049}),303
+            return redirect('/',code=302)
     return wraps
+
+#创建theme文件夹
+def make_theme_file(t_name):
+    file_name = ['/mainpic','/video','/largepic']
+    theme_path = os.path.join(cfg.THEMES_DIR,t_name)
+    f = os.path.exists(theme_path)
+    if not f:
+        os.makedirs(theme_path)
+        for name in file_name:
+            os.mkdir(theme_path+name)
+        config_file = os.path.join(theme_path,'config.json')
+        print(config_file)
+        with open(config_file,'w') as f:
+            f.write(json.dumps(cfg.BASE_THEME_CONFIG))
+        return theme_path
+    else:
+        return 0
