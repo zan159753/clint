@@ -160,18 +160,30 @@ class Devices(db.Model):
                 }
 
 
-class MediasPags:
+class MediasPags(db.Model):
     p_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    p_code = db.Column(db.String(64))
+    p_code = db.Column(db.String(64),unique=True)
     p_type = db.Column(db.Integer(), default=0)
+    def model_to_dict(self):
+        return {
+            'p_id': self.p_id,
+            'p_code': self.p_code,
+            'p_type': self.p_type,
+        }
 
-
-class MediasPag_Schemes:
+class MediasPag_themes(db.Model):
     p_t_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     p_id = db.Column(db.Integer())
     t_id = db.Column(db.Integer())
-    p_t_week = db.Column(db.Integer())
+    p_t_week = db.Column(db.Integer(),default=0)
 
+    def model_to_dict(self):
+        return {
+            'p_t_id': self.p_t_id,
+            'p_id': self.p_id,
+            't_id': self.t_id,
+            'p_t_week': self.p_t_week,
+        }
 
 #
 class Medias(db.Model):
@@ -181,10 +193,29 @@ class Medias(db.Model):
     m_size = db.Column(db.String(32))
     m_format = db.Column(db.String(16))
     m_url = db.Column(db.String(256))
-    m_memory = db.Column(db.String(8))
+    m_memory = db.Column(db.String(32))
     u_id = db.Column(db.Integer)
     t_id = db.Column(db.Integer())
     m_upload_time = db.Column(db.DateTime(), default=datetime.datetime.now())
+
+    def model_to_dict(self):
+        try:
+            m_upload_time = self.m_upload_time.strftime('%Y-%m-%d')
+        except:
+            m_upload_time = None
+
+        return {
+            'm_id':self.m_id,
+            'm_name':self.m_name,
+            'm_type':self.m_type,
+            'm_size':self.m_size,
+            'm_format':self.m_format,
+            'm_url':self.m_url,
+            'm_memory':self.m_memory,
+            'u_id':self.u_id,
+            't_id':self.t_id,
+            'm_upload_time':self.m_upload_time,
+        }
 
 
 class Themes(db.Model):
@@ -192,10 +223,13 @@ class Themes(db.Model):
     t_name = db.Column(db.String(32), unique=True)
     u_id = db.Column(db.Integer())
     t_url = db.Column(db.String(256))
-
+    t_pic_loop = db.Column(db.Integer(),default=5)
+    t_vedio_loop = db.Column(db.Integer(),default=15)
+    t_type = db.Column(db.Integer(),default=0)
     def model_to_dict(self):
         return {'t_id': self.t_id, 't_name': self.t_name, 'u_id': self.u_id,
-                't_url': self.t_url
+                't_url': self.t_url, 't_pic_loop': self.t_pic_loop ,
+                't_vedio_loop': self.t_vedio_loop ,'t_type':self.t_type,
                 }
 
 

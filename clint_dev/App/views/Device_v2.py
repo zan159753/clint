@@ -367,7 +367,7 @@ def device_contro(page=None, per_page=None, number=None, name=None, city=None, c
             return jsonify(data=data, page_msg=page_msg), 208
 
     elif request.method == 'POST':
-       pass
+        pass
     elif request.method == 'PUT':
         pass
     elif request.method == 'DELETE':

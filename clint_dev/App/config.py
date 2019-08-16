@@ -39,5 +39,18 @@ BASE_DIR = os.getcwd()
 THEMES_DIR = os.path.join(BASE_DIR, 'static', 'themes')
 
 # 主题初始配置
-BASE_THEME_CONFIG = {"mainpic":{"window": {"x": 0,"y": 608,"w": 1080,"h": 712},"loop": 5},"video": {"window": {"x": 0,"y": 0,"w": 1080,"h": 608},"loop": 15}}
-
+BASE_THEME_CONFIG = {"mainpic":
+                         {"window":
+                              {"x": 0,
+                               "y": 608,
+                               "w": 1080,
+                               "h": 712},
+                          "loop": 5
+                          },
+                     "video":
+                         {"window":
+                               {"x": 0,
+                                "y": 0,
+                                "w": 1080,
+                                "h": 608},
+                           "loop": 15}}

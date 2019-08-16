@@ -1,5 +1,6 @@
 import datetime
 import os
+from copy import copy, deepcopy
 
 from flask import session, jsonify, redirect
 from sqlalchemy import or_, and_
@@ -121,9 +122,27 @@ def make_theme_file(t_name):
         for name in file_name:
             os.mkdir(theme_path+name)
         config_file = os.path.join(theme_path,'config.json')
-        print(config_file)
         with open(config_file,'w') as f:
             f.write(json.dumps(cfg.BASE_THEME_CONFIG))
         return theme_path
     else:
         return 0
+
+def add_config(pic_loop=None,vedio_loop=None,theme_url=None):
+    pic_loop = pic_loop
+    vedio_loop = vedio_loop
+    theme_url = theme_url
+    THEME_CONFIG = deepcopy(cfg.BASE_THEME_CONFIG)
+    if pic_loop:
+        THEME_CONFIG['mainpic']['loop'] = pic_loop
+    if vedio_loop:
+        THEME_CONFIG['vedio']['loop'] = vedio_loop
+    try:
+        config_file = os.path.join(theme_url, 'config.json')
+        with open(config_file, 'w') as f:
+            f.write(json.dumps(THEME_CONFIG))
+        print(cfg.BASE_THEME_CONFIG)
+        return True
+    except:
+        return False
+

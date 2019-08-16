@@ -4,8 +4,8 @@ import shutil
 from flask import Blueprint, request, jsonify
 
 from App.ext import db
-from App.logics import make_theme_file
-from App.models import Themes, Medias
+from App.logics import make_theme_file, add_config
+from App.models import Themes, Medias, MediasPag_themes
 
 theme_api = Blueprint("theme_api", __name__, url_prefix='/api/themes/')
 
@@ -14,6 +14,7 @@ def themes_contro(page=None,per_page=None):
     if request.method == 'GET':
         t_id = request.args.get('t_id')
         t_name = request.args.get('t_name')
+        p_id = request.args.get('p_id')
         u_id = request.args.get('u_id')
         page = request.args.get('page',1)
         per_page = request.args.get('per_page',20)
@@ -33,6 +34,22 @@ def themes_contro(page=None,per_page=None):
             theme = Themes.query.filter_by(u_id=u_id).first()
             if theme:
                 return jsonify(theme.model_to_dict())
+            else:
+                return jsonify({'msg': 'not found'})
+        elif p_id:
+            mediaspag_themes = MediasPag_themes.query.filter_by(p_id=p_id).all()
+            t_ids = []
+            for mediaspag_theme in mediaspag_themes:
+                 t_ids.append(mediaspag_theme.t_id)
+            try:
+                themes = Themes.query.filter(Themes.t_id.in_(t_ids)).all()
+            except:
+                return jsonify({"msg": "error"}), 400
+            if themes:
+                data = []
+                for theme in themes:
+                    data.append(theme.model_to_dict())
+                return jsonify(data=data)
             else:
                 return jsonify({'msg': 'not found'})
         else:
@@ -59,7 +76,30 @@ def themes_contro(page=None,per_page=None):
             else:
                 return jsonify({'msg':'repeat','code':1004}),400
     elif request.method == 'PUT':
-        pass
+        t_name = request.form.get('t_name')
+        pic_loop = request.form.get('pic_loop')
+        vedio_loop = request.form.get('vedio_loop')
+        t_id = request.form.get('t_id')
+        try:
+            theme = Themes.query.get(t_id)
+        except:
+            theme = None
+        if theme:
+            if t_name:
+                theme.t_name = t_name
+                db.session.add(theme)
+            if pic_loop:
+                add_config(pic_loop=pic_loop,theme_url=theme.t_url)
+                theme.t_pic_loop = pic_loop
+                db.session.add(theme)
+            if vedio_loop:
+                add_config(vedio_loop=vedio_loop, theme_url=theme.t_url)
+                theme.t_vedio_loop = vedio_loop
+                db.session.add(theme)
+            db.session.commit()
+            return jsonify({'msg': 'success'}), 200
+        else:
+            return jsonify({"msg": "error"}), 400
     elif request.method == 'DELETE':
         t_id = request.form.get('t_id')
         medias = Medias.query.filter(Medias.t_id == t_id)
