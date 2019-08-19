@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 69e35bd233ae
+Revision ID: 078088ba85f6
 Revises: 
-Create Date: 2019-08-16 10:07:49.836920
+Create Date: 2019-08-19 12:04:06.467919
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '69e35bd233ae'
+revision = '078088ba85f6'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -78,6 +78,20 @@ def upgrade():
     sa.Column('m_upload_time', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('m_id')
     )
+    op.create_table('medias_pag_themes',
+    sa.Column('p_t_id', sa.Integer(), autoincrement=True, nullable=False),
+    sa.Column('p_id', sa.Integer(), nullable=True),
+    sa.Column('t_id', sa.Integer(), nullable=True),
+    sa.Column('p_t_week', sa.Integer(), nullable=True),
+    sa.PrimaryKeyConstraint('p_t_id')
+    )
+    op.create_table('medias_pags',
+    sa.Column('p_id', sa.Integer(), autoincrement=True, nullable=False),
+    sa.Column('p_code', sa.String(length=64), nullable=True),
+    sa.Column('p_type', sa.Integer(), nullable=True),
+    sa.PrimaryKeyConstraint('p_id'),
+    sa.UniqueConstraint('p_code')
+    )
     op.create_table('themes',
     sa.Column('t_id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('t_name', sa.String(length=32), nullable=True),
@@ -133,6 +147,8 @@ def downgrade():
     op.drop_table('device')
     op.drop_table('user')
     op.drop_table('themes')
+    op.drop_table('medias_pags')
+    op.drop_table('medias_pag_themes')
     op.drop_table('medias')
     op.drop_table('devices')
     op.drop_table('client')
