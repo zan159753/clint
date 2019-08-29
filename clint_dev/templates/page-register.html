@@ -41,18 +41,18 @@
                         </div>
                         <div class="login-form">
                             <h4>Register to Administration</h4>
-                            <form id="regist" onclick="return click()">
+                            <form id="regist" onclick= "return false">
                                 <div class="form-group">
                                     <label>帐 号</label>
-                                    <input type="text" class="form-control" placeholder="Account" name="u_account">
+                                    <input type="text" class="form-control" placeholder="Account" name="name">
                                 </div>
                                 <div class="form-group">
                                     <label>密 码</label>
-                                    <input type="password" class="form-control" placeholder="Password" name="u_password">
+                                    <input type="password" class="form-control" placeholder="Password" name="password">
                                 </div>
                                 <div class="form-group">
                                     <label>确 认 密 码</label>
-                                    <input type="repassword" class="form-control" placeholder="rePassword" name="u_repassword">
+                                    <input type="password" class="form-control" placeholder="rePassword" name="repassword">
                                 </div>
                                 <div class="checkbox">
                                     <label>
@@ -61,10 +61,11 @@
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Register</button>
 
-                                <div class="register-link m-t-15 text-center">
-                                    <p>Already have account ? <a href="/"> Sign in</a></p>
-                                </div>
+
                             </form>
+                            <div class="register-link m-t-15 text-center">
+                                    <p>Already have account ? <a href="/project1/"> Sign in</a></p>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -75,22 +76,18 @@
         $("button").click(function() {
                 $.ajax({
                      type:"POST",
-                     url: "/api/users/",
+                     url: "/project1/api/users/",
                      dataType: "json",
                      data:$("#regist").serialize(),
-
                      success: function (result) {
-                         console.log(result);
-                         if (result.msg == 'login success') {
-                             window.location.replace('/');
-                             return false;
-                         } else if (result.msg == 'wrong repassword') {
+                         console.log(result[0]);
+                         if (result[0]['msg'] == 'regist success') {
+                             window.location.replace('/project1/');
+                         } else if (result[0]['msg'] == 'wrong repassword') {
                              alert('两次密码不同，请重新输入！');
-                             return false;
                              $('#errormsg').html("<strong>用户名或密码错误！<strong>");
                          }else{
-                             alert('error');
-                             return false;
+
                          }
                      },
                  });

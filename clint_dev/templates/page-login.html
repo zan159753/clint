@@ -68,7 +68,7 @@
 
 								</form>
                                 <div class="register-link m-t-15 text-center">
-										<p>没有帐号？<a href="/regist/"> 注册新账户</a></p>
+										<p>没有帐号？<a href="/project1/regist/"> 注册新账户</a></p>
                                 </div>
 							</div>
 						</div>
@@ -81,13 +81,13 @@
         $("button").click(function() {
             $.ajax({
                  type:"POST",
-                 url: "/api/users/",
+                 url: "/project1/api/users/",
                  dataType: "json",
                  data:$("#login").serialize(),
                   success: function (result) {
                      console.log(result);
                      if (result[0].msg == 'login success') {
-                         window.location.replace('/device_admin/');
+                         window.location.replace('/project1/device_admin/');
                      } else if (result[0].msg == 'wrong password') {
                          alert('请检查用户名密码！');
                          $('#errormsg').html("<strong>用户名或密码错误！<strong>");

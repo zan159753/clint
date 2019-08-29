@@ -5,6 +5,7 @@ import random
 from flask import Blueprint, request, jsonify, session, render_template, send_file, redirect, url_for
 # from PIL import Image
 from sqlalchemy import and_
+from werkzeug.security import generate_password_hash
 
 from App.ext import db, cache
 from App.logics import send_msg, get_user_paginate, check_login
@@ -42,7 +43,7 @@ def to_test():
 def to_login():
     return render_template('page-login.html')
 
-@regist_api.route('/')
+@regist_api.route('/',methods = ["POST"])
 def to_regist():
     return render_template('page-register.html')
 
@@ -70,7 +71,7 @@ def to_device_put():
 @logout_api.route('/')
 def to_logout():
     session.clear()
-    return redirect('/',code=302)
+    return redirect('/project1/',code=302)
 
 @device_add_api.route('/')
 def to_device_add():
@@ -127,12 +128,12 @@ def userContro(page=None, per_page=None,u_id=None, u_account=None, u_name=None, 
                u_wechat=None, u_qq=None, u_type=None, u_statu=None):
     if request.method == 'GET':
 
-        pass
+        return '123'
 
 
     # 登陆接口
     elif request.method == 'POST':
-
+        print(1)
         # 管理员添加用户
 
         if request.form.get('u_account') and request.form.get('u_name') and request.form.get(
@@ -163,18 +164,14 @@ def userContro(page=None, per_page=None,u_id=None, u_account=None, u_name=None, 
                 return jsonify({'msg': 'login success', 'code': 1000},
                                user.model_to_dict()), 200
         # 帐号密码登陆
-        elif request.form.get('name'):
-            print(1)
+        if request.form.get('name'):
+
             name = request.form.get('name')
             password = request.form.get('password')
             repassword = request.form.get('repassword')
             user = User.query.filter_by(name=name).first()
-            print(2)
             if user:
-                print(user.password)
-                print(password)
-                if password == user.password:
-                    print(3)
+                if user.check_password(password):
                     session['u_id'] = user.id
                     return jsonify({'msg': 'login success', 'code': 1000},
                                    user.model_to_dict()), 200
@@ -184,9 +181,8 @@ def userContro(page=None, per_page=None,u_id=None, u_account=None, u_name=None, 
             else:
                 if password == repassword:
                     user = User()
-                    user.u_account = name
-                    user.u_password = password
-                    user.regist_time = datetime.date.today()
+                    user.name = name
+                    user.password = generate_password_hash(password)
                     db.session.add(user)
                     db.session.commit()
                     return jsonify(

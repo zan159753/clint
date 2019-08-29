@@ -2,102 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d55c47cb-4611-4559-ab55-708735725374" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/views/MyResponse.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/views/mediacode.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/css/css/bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/css/css/jquery.galpop.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/css/css/zzsc-demo.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/fonts/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/fonts/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/fonts/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/fonts/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/fonts/fonts/glyphicons-halflings-regular.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/gb.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/images/ajax-loader.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/images/btn-close.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/images/btn-next.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/images/btn-prev.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/images/gallery/large/alice.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/images/gallery/large/apocalypse.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/images/gallery/large/darkroad.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/images/gallery/large/goodBoy.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/images/gallery/large/magicLake.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/images/gallery/large/reflection.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/images/gallery/large/roadkill.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/images/gallery/large/underwater.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/images/gallery/large/vintage.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/images/gallery/large/wolfMarine.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/images/gallery/thumbs/alice.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/images/gallery/thumbs/apocalypse.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/images/gallery/thumbs/darkroad.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/images/gallery/thumbs/goodBoy.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/images/gallery/thumbs/magicLake.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/images/gallery/thumbs/reflection.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/images/gallery/thumbs/roadkill.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/images/gallery/thumbs/underwater.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/images/gallery/thumbs/vintage.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/images/gallery/thumbs/wolfMarine.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/play.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/video_img.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/js/js/jquery-1.11.0.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/js/js/jquery.galpop.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/js/js/jquery.galpop.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/themes/1/mainpic/20190826171555.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/themes/1/mainpic/20190826171801.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/themes/1/mainpic/20190826171804.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/themes/1/mainpic/20190826171807.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/themes/1/mainpic/20190826171813.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/themes/1/mainpic/20190826171816.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/themes/1/mainpic/20190826171823.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/themes/1/mainpic/20190827155436.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/themes/1/video/20190828142918.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/themes/1/video/20190828142921.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/themes/1/video/20190828142925.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/themes/1/video/20190828151000.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/image-index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/image_add.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/image_admin.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/media-pag.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/mediapag-add.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/mediapag-themes.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/new_theme_add.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/test.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/theme-add.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/theme-admin.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/theme-put.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/video-add.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/video-admin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7f22bc1b-9d70-457b-b228-f13e40deef6e.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/logics.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/logics.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/views/Client.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/views/Client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/views/Device_v2.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/views/Device_v2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/views/Devices_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/views/Devices_api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/views/MediasPags.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/views/MediasPags.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/views/Themes_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/views/Themes_api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/views/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/views/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/views/medias.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/views/medias.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/views/mediasPag_themes.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/views/mediasPag_themes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/views/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/views/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/views/users_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/views/users_api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/themes/zan1/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/static/themes/1/config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/themes/zan1/video/20190816102650.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/themes/zan2/config.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/themes/zan2/video/20190816102645.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/themes/zan3/config.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/themes/zan3/video/20190816102654.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/app-email.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/app-email.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/client-add.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/client-add.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/client-put.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/client-put.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/device-add.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/device-add.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/device-put.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/device-put.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/devices-admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/devices-admin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/page-login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page-login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/page-register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page-register.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/user-admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user-admin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/user-put.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user-put.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -131,13 +42,6 @@
         <item name="develop_test@localhost" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="develop_test: schema" type="76f4a085:MysqlImplModel$Schema" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="develop_test@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="develop_test: schema" type="76f4a085:MysqlImplModel$Schema" />
-        <item name="themes: table" type="285a2a93:MysqlImplModel$Table" />
       </path>
     </expand>
     <select />
@@ -200,7 +104,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.logics">
+  <component name="RunManager" selected="Python.test">
     <configuration name="Devices_api" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="clint_dev" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -328,10 +232,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.logics" />
         <item itemvalue="Python.config" />
         <item itemvalue="Python.Devices_api" />
-        <item itemvalue="Python.test" />
         <item itemvalue="Python.user_contro" />
       </list>
     </recent_temporary>
@@ -428,7 +332,7 @@
       <workItem from="1566803692200" duration="9982000" />
       <workItem from="1566814308800" duration="40944000" />
       <workItem from="1566982729966" duration="1702000" />
-      <workItem from="1567042735013" duration="1309000" />
+      <workItem from="1567042735013" duration="7537000" />
     </task>
     <servers />
   </component>
@@ -455,7 +359,7 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/clint_dev$test.coverage" NAME="test Coverage Results" MODIFIED="1564130425163" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/clint_dev$test.coverage" NAME="test Coverage Results" MODIFIED="1567048415451" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/clint_dev$Devices_api.coverage" NAME="Devices_api Coverage Results" MODIFIED="1564130902502" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/App/views" />
     <SUITE FILE_PATH="coverage/clint_dev$settings.coverage" NAME="settings Coverage Results" MODIFIED="1563854302357" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/App" />
     <SUITE FILE_PATH="coverage/clint_dev$config.coverage" NAME="config Coverage Results" MODIFIED="1565337555810" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/App" />

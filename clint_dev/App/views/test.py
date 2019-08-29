@@ -5,6 +5,7 @@ import random
 import requests
 from flask import request, jsonify
 from sqlalchemy import or_, and_
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from App.ext import db
 from App.models import User
