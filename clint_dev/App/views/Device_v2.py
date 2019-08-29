@@ -4,7 +4,7 @@ from sqlalchemy import and_
 from App.logics import get_device_paginate
 from App.models import Device
 
-devices_v2_api = Blueprint('devices_v2_api', __name__, url_prefix='/api/devices_v2/')
+devices_v2_api = Blueprint('devices_v2_api', __name__, url_prefix='/project1/api/devices_v2/')
 
 
 @devices_v2_api.route('/', methods=['GET', 'POST', 'PUT', 'DELETE'])

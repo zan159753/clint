@@ -11,16 +11,32 @@ from App.logics import send_msg, get_user_paginate, check_login
 from App.models import User
 # from App.settings import BASEDIR
 
-user_api = Blueprint("user_api", __name__, url_prefix='/api/users/')
-login_api = Blueprint("login_api", __name__, url_prefix='/')
-regist_api = Blueprint("regist_api", __name__, url_prefix='/regist/')
-index_api = Blueprint("index_api", __name__, url_prefix='/index/')
-user_admin_api = Blueprint("user_admin_api", __name__, url_prefix='/user_admin/')
-user_put_api = Blueprint("user_put_api", __name__, url_prefix='/user_put/')
-device_admin_api = Blueprint("device_admin_api", __name__, url_prefix='/device_admin/')
-device_put_api = Blueprint("device_put_api", __name__, url_prefix='/device_put/')
-logout_api = Blueprint("logout_api", __name__, url_prefix='/logout/')
-device_add_api = Blueprint("device_add_api", __name__, url_prefix='/device_add/')
+test_api = Blueprint("test_api", __name__, url_prefix='/test/')
+user_api = Blueprint("user_api", __name__, url_prefix='/project1/api/users/')
+login_api = Blueprint("login_api", __name__, url_prefix='/project1/')
+regist_api = Blueprint("regist_api", __name__, url_prefix='/project1/regist/')
+index_api = Blueprint("index_api", __name__, url_prefix='/project1/index/')
+user_admin_api = Blueprint("user_admin_api", __name__, url_prefix='/project1/user_admin/')
+user_put_api = Blueprint("user_put_api", __name__, url_prefix='/project1/user_put/')
+device_admin_api = Blueprint("device_admin_api", __name__, url_prefix='/project1/device_admin/')
+device_put_api = Blueprint("device_put_api", __name__, url_prefix='/project1/device_put/')
+logout_api = Blueprint("logout_api", __name__, url_prefix='/project1/logout/')
+device_add_api = Blueprint("device_add_api", __name__, url_prefix='/project1/device_add/')
+mediapag_admin_api = Blueprint("mediapag_admin_api", __name__, url_prefix='/project1/mediapag_admin/')
+mediapag_add_api = Blueprint("mediapag_add_api", __name__, url_prefix='/project1/mediapag_add/')
+mediapag_themes_api = Blueprint("mediapag_themes_api", __name__, url_prefix='/project1/mediapag_themes/')
+theme_put_api = Blueprint("theme_put_api", __name__, url_prefix='/project1/theme_put/')
+theme_add_api = Blueprint("theme_add_api", __name__, url_prefix='/project1/theme_add/')
+theme_admin_api = Blueprint("theme_admin_api", __name__, url_prefix='/project1/theme_admin/')
+new_theme_add_api = Blueprint("new_theme_add_api", __name__, url_prefix='/project1/new_theme_add/')
+image_admin_api = Blueprint("image_admin_api", __name__, url_prefix='/project1/image_admin/')
+image_add_api = Blueprint("image_add_api", __name__, url_prefix='/project1/image_add/')
+video_admin_api = Blueprint("video_admin_api", __name__, url_prefix='/project1/video_admin/')
+video_add_api = Blueprint("video_add_api", __name__, url_prefix='/project1/video_add/')
+
+@test_api.route('/')
+def to_test():
+    return render_template('image-index.html')
 
 @login_api.route('/')
 def to_login():
@@ -59,6 +75,50 @@ def to_logout():
 @device_add_api.route('/')
 def to_device_add():
     return render_template('device-add.html')
+
+@mediapag_admin_api.route('/')
+def to_mediapag_admin():
+    return render_template("media-pag.html")
+
+@mediapag_add_api.route('/')
+def to_mediapag_add():
+    return render_template("mediapag-add.html")
+
+@mediapag_themes_api.route('/')
+def to_mediapag_themes():
+    return render_template("mediapag-themes.html")
+
+@theme_put_api.route('/')
+def to_theme_put():
+    return render_template("theme-put.html")
+
+@theme_add_api.route('/')
+def to_theme_add():
+    return render_template('theme-add.html')
+
+@theme_admin_api.route('/')
+def to_theme_admin():
+    return render_template("theme-admin.html")
+
+@new_theme_add_api.route('/')
+def to_new_theme_add():
+    return render_template('new_theme_add.html')
+
+@image_admin_api.route('/')
+def to_image_admin():
+    return render_template("image_admin.html")
+
+@image_add_api.route('/')
+def to_image_add():
+    return render_template("image_add.html")
+
+@video_admin_api.route('/')
+def to_video_admin():
+    return render_template("video-admin.html")
+
+@video_add_api.route("/")
+def to_video_add():
+    return render_template("video-add.html")
 
 
 @user_api.route('/', methods=['GET', 'POST', "DELETE", "PUT","PATCH"])

@@ -14,12 +14,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script type="text/javascript">
+
             $("#put_form").ready(function () {
                 var url_str = window.location.href;
                 var u_id = url_str.split("=")[1];
                 $.ajax({
                     type: "get",
-                    url: "/api/users/",
+                    url: "/project1/api/users/",
                     async: true,
                     data: {"u_id": u_id},
                     result: {},
@@ -40,7 +41,7 @@
                         $("button").click(function () {
                             $.ajax({
                                 type: "put",
-                                url: "/api/users/",
+                                url: "/project1/api/users/",
                                 async: true,
                                 data: $("#put_form").serialize(),
                                 result: {},

@@ -19,7 +19,7 @@
                 var id = url_str.split("=")[1];
                 $.ajax({
                     type: "get",
-                    url: "/api/client/",
+                    url: "/project1/api/client/",
                     async: true,
                     data: {"id": id},
                     result: {},
@@ -43,7 +43,7 @@
                         $("button").click(function () {
                             $.ajax({
                                 type: "put",
-                                url: "/api/client/",
+                                url: "/project1/api/client/",
                                 async: true,
                                 data: $("#put_form").serialize(),
                                 result: {},

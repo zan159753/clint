@@ -9,7 +9,7 @@ from App.ext import db
 from App.logics import get_device_paginate, info_user, check_login
 from App.models import Devices, User
 
-device_api = Blueprint('device_api', __name__, url_prefix='/api/devices/')
+device_api = Blueprint('device_api', __name__, url_prefix='/project1/api/devices/')
 
 
 @device_api.route('/', methods=['GET', 'POST', 'PUT', 'DELETE'])

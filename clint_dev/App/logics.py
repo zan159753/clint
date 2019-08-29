@@ -133,16 +133,12 @@ def add_config(pic_loop=None,vedio_loop=None,theme_url=None):
     vedio_loop = vedio_loop
     theme_url = theme_url
     THEME_CONFIG = deepcopy(cfg.BASE_THEME_CONFIG)
-    if pic_loop:
-        THEME_CONFIG['mainpic']['loop'] = pic_loop
-    if vedio_loop:
-        THEME_CONFIG['vedio']['loop'] = vedio_loop
+    THEME_CONFIG['mainpic']['loop'] = int(pic_loop)
+    THEME_CONFIG['video']['loop'] = int(vedio_loop)
     try:
         config_file = os.path.join(theme_url, 'config.json')
         with open(config_file, 'w') as f:
             f.write(json.dumps(THEME_CONFIG))
-        print(cfg.BASE_THEME_CONFIG)
-        return True
     except:
         return False
-
+    return True

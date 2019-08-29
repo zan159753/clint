@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script type="text/javascript">
+        $("#put_form").ready(function () {
+            var url_str = window.location.href;
+            var t_id = url_str.split("=")[1];
+            console.log('123');
+            $("#put_form").append('<div class="form-group"><label for="inputtext" class="col-sm-2 control-label">主题编号</label>' +
+                '                    <div class="col-sm-10">' +
+                '                       <input name="t_id" readonly="readonly" type="text" value="' + t_id + '" class="form-control" id="inputaccount">' +
+                '</div>' +
+                '</div>' +
+
+                '                <div class="form-group"><label for="inputtext" class="col-sm-2 control-label">媒体类型</label>' +
+                '                    <div class="col-sm-10"><input name="m_type" value="0" type="text" class="form-control" id="inputaccount"></div>' +
+                '                </div>' +
+                '                <input name="mainpic" type="file" class="input-default" id="inputaccount">' +
+                '<div class="form-group">' +
+                '                    <div class="col-sm-offset-2 col-sm-10">' +
+                '                        <button type="submit" class="btn btn-success">上传</button>' +
+                '                    </div>' +
+                '                </div>');
+            //$("#put_form").after(str);
+            console.log('321');
+            $("button").click(function () {
+                var data = new FormData(document.getElementById("put_form"));
+                $.ajax({
+                    type: "post",
+                    url: "/project1/api/medias/",
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    success: function (result) {
+                        console.log(result['msg']);
+                        alert('添加成功！');
+                        window.close();
+                        return false
+                    },
+                    error: function (result) {
+                        alert(result["responseJSON"]["msg"]);
+                        return false;
+                    }
+                });
+                {#window.close();#}
+            });
+
+        })
+    </script>
+</head>
+<body>
+<div class="content-wrap">
+    <div class="main">
+        <div class="container-fluid">
+            <form class="form-horizontal" id="put_form" enctype="multipart/form-data">
+
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

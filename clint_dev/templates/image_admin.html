@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>广告图片管理</title>
+
+    <link href="/static/css/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/css/css/zzsc-demo.css">
+    <link type="text/css" rel="stylesheet" href="/static/css/css/jquery.galpop.css" media="screen">
+
+</head>
+<body>
+    <h1 style="align-self: center">图片管理</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+            </div>
+        </div>
+
+
+        <input type="button" class="btn btn-success btn-xs media_button" value="添加图片">
+
+
+
+    </div>
+<script src="/static/js/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="/static/js/js/jquery.galpop.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var url_str = window.location.href;
+        var t_id = url_str.split("=")[1];
+        $.ajax({
+            type: "get",
+            url: "/project1/api/medias/",
+            async: true,
+            data: {'t_id': t_id},
+            result: {},
+            success: function (result) {
+                var data = result["data"];
+                var medias_str = "";
+                for (var i in data) {
+                    if (data[i]['m_type'] == "0"){
+                        medias_str += '<div class="gallery-wrapper">\n' +
+                        '                <a class="galpop-multiple" data-galpop-group="multiple"\n' +
+                        '                   href="' + data[i]['m_url'] + '">\n' +
+                        '                    <img src="' + data[i]['m_url'] + '"   class="img-thumbnail"alt="An apocalyptic Earth." style="width: 10%;height: 10%"></a>' +
+                        '<input type="button" class="btn btn-danger btn-xs delete_button" value="删除" id="' + data[i]['m_id'] + '"></div>'
+                    }
+                }
+                $(".col-md-12").after(medias_str);
+
+                $(".delete_button").click(function () {
+                    var m_id = $(this).attr("id");
+                    $.ajax({
+                        type: "delete",
+                        url: "/project1/api/medias/",
+                        async: true,
+                        data:{'m_id':m_id},
+                        result: {},
+                        success: function (result)//成功取回数据之后的回调函数
+                            {
+                                alert('delete success');
+                                window.location.reload();
+                            },
+                            error: function ()//没能取回数据之后的回调函数
+                            {
+                                alert("请求失败！");
+                            }
+                   })
+                });
+
+                $(".media_button").click(function () {
+                    var url = '/project1/image_add/?t_id=' + t_id;
+                    var left = (window.screen.width - 600) / 2;
+                    var top = (window.screen.height - 400) / 2;
+                    window.open(url, "", "height=" + 400 + ", width=" + 600 + ",top=" + top +  ",left=" + left + ", toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no");
+                });
+
+                $('.galpop-single').galpop();
+
+                $('.galpop-multiple').galpop();
+
+                $('.galpop-info').galpop();
+
+
+                var callback = function () {
+                    var wrapper = $('#galpop-wrapper');
+                    var info = $('#galpop-info');
+                    var count = wrapper.data('count');
+                    var index = wrapper.data('index');
+                    var current = index + 1;
+                    var string = 'Image ' + current + ' of ' + count;
+
+                    info.append('<p>' + string + '</p>').fadeIn();
+
+                };
+                $('.galpop-callback').galpop({
+                    callback: callback
+                });
+
+                $('.manual-open').change(function (e) {
+                    var image = $(this).val();
+                    if (image) {
+                        var settings = {};
+                        $.fn.galpop('openBox', settings, image);
+                    }
+                });
+
+                $('.manual-open-group').change(function (e) {
+                    var v = $(this).val();
+                    var images = [
+                        'images/gallery/large/apocalypse.jpg',
+                        'images/gallery/large/vintage.jpg',
+                        'images/gallery/large/magicLake.jpg',
+                        'images/gallery/large/underwater.jpg',
+                        'images/gallery/large/goodBoy.jpg',
+                        'images/gallery/large/darkroad.jpg',
+                        'images/gallery/large/roadkill.jpg',
+                        'images/gallery/large/wolfMarine.jpg',
+                        'images/gallery/large/alice.jpg',
+                        'images/gallery/large/reflection.jpg',
+                    ];
+                    var settings = {};
+                    $.fn.galpop('openBox', settings, images, v);
+                });
+
+                $('.click-open-iframe').galpop({
+                    contentType: 'iframe',
+                });
+
+                $('.click-open-ajax').galpop({
+                    contentType: 'AJAX',
+                });
+            },
+            error: function (result) {
+
+                alert(result["responseJSON"]["msg"]);
+            }
+        });
+
+
+    });
+
+</script>
+</body>
+

@@ -35,6 +35,7 @@ U_STATU_5 = 5
 
 # 项目根路径
 BASE_DIR = os.getcwd()
+
 # 主题文件夹路径
 THEMES_DIR = os.path.join(BASE_DIR, 'static', 'themes')
 

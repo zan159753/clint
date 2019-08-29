@@ -4,9 +4,9 @@ from sqlalchemy import and_
 from App.ext import db
 from App.models import ClientInfo
 
-client_api = Blueprint("client_api", __name__, url_prefix='/api/client/')
-client_add_api = Blueprint("client_add_api", __name__, url_prefix='/client_add/')
-client_put_api = Blueprint("client_put_api", __name__, url_prefix='/client_put/')
+client_api = Blueprint("client_api", __name__, url_prefix='/project1/api/client/')
+client_add_api = Blueprint("client_add_api", __name__, url_prefix='/project1/client_add/')
+client_put_api = Blueprint("client_put_api", __name__, url_prefix='/project1/client_put/')
 
 @client_put_api.route('/')
 def to_client_put():
